@@ -1,7 +1,5 @@
 package br.ucsal.gateway.security;
 
-
-
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
@@ -13,7 +11,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Component
-public class UserHeaderFilter implements GlobalFilter{
+public class UserHeaderFilter implements GlobalFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
