@@ -38,14 +38,11 @@ public class SecurityConfig {
                         .pathMatchers("/reservaEspaco/**").hasRole("ADMIN")
                         .pathMatchers("/professor/**").hasRole("ADMIN")
                         .pathMatchers("/software/**").hasRole("ADMIN")
-                        .anyExchange().authenticated()
-                )
+                        .anyExchange().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt
                                 .jwtDecoder(jwtDecoder())
-                                .jwtAuthenticationConverter(jwtAuthenticationConverter())
-                        )
-                )
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .build();
     }
 
@@ -65,8 +62,7 @@ public class SecurityConfig {
 
         ReactiveJwtAuthenticationConverter jwtAuthenticationConverter = new ReactiveJwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(
-                new ReactiveJwtGrantedAuthoritiesConverterAdapter(grantedAuthoritiesConverter)
-        );
+                new ReactiveJwtGrantedAuthoritiesConverterAdapter(grantedAuthoritiesConverter));
 
         return jwtAuthenticationConverter;
     }
