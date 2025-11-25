@@ -34,10 +34,26 @@ public class SecurityConfig {
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/auth/login").permitAll()
                         .pathMatchers(HttpMethod.POST, "/auth/register").hasRole("ADMIN")
-                        .pathMatchers("/espaco/**").hasRole("ADMIN")
-                        .pathMatchers("/reservaEspaco/**").hasRole("ADMIN")
+
+                        .pathMatchers("/api/espacos/**").hasRole("ADMIN")
+
+                        .pathMatchers(HttpMethod.POST, "/reservas").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.PUT, "/reservas/{id}").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.DELETE, "/reservas/{id}").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/reservas/{id}").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/reservas").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/reservas/espaco/{espacoId}").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/reservas/alocadas").hasRole("PROFESSOR")
+
                         .pathMatchers("/professor/**").hasRole("ADMIN")
-                        .pathMatchers("/software/**").hasRole("ADMIN")
+
+                        .pathMatchers(HttpMethod.POST, "/software").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/software/findAll").hasRole("PROFESSOR")
+                        .pathMatchers(HttpMethod.PUT, "/software/{id}").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/software/{id}").hasRole("PROFESSOR")
+                        .pathMatchers(HttpMethod.DELETE, "/software/{id}").hasRole("ADMIN")
+                        .pathMatchers(HttpMethod.GET, "/software/exists/{id}").hasRole("PROFESSOR")
+
                         .anyExchange().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(jwt -> jwt
